@@ -5,9 +5,7 @@ Assignment: Fractions V1
 */
 
 import java.util.Scanner;
-import java.io.PrintWriter;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 
 public class Fractions_V1
@@ -16,11 +14,11 @@ public class Fractions_V1
     //shell that will run the methods
     public static void main(String[] args)
     {
-        int reRun;
+        int reRun = 2;
         do {
             runner();
             reRun = reRun();
-        }while (reRun != 1);
+        }while (reRun != 0);
     }
 
     static void runner(){
@@ -42,4 +40,13 @@ public class Fractions_V1
         }
     }
 
+    static int reRun(){
+        Scanner keyboard = new Scanner(System.in); 
+        System.out.println("Would you like to enter another file to be read? 0 for no, 1 for yes ");
+        int confirm = keyboard.nextInt();
+        return confirm;
+    }
+
+
 }
+
