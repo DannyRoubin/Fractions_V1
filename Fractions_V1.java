@@ -53,8 +53,39 @@ public class Fractions_V1
             fileLength++;
             System.out.println(fileLength);
         }
+        // data stream needs to be closed and then reopened to set us back to the start of the file
+        fileData1.close();
+
+        Scanner fileData2 = null;
+
+        // recreating the connection to the file
+        try{
+            fileData2 =
+            new Scanner(new FileInputStream(fileName));
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("error");
+            e.printStackTrace();
+        }
         
         initialArray = new Object[fileLength];
+
+        int arrayIndexCount = 0;
+
+        while (fileData2.hasNext()) {
+            // temp holder is needed to scroll through the file and get an accurate count
+            String tempHolder2 = fileData2.next();
+            Object tempObj = tempHolder2;
+            initialArray[arrayIndexCount] = tempObj;
+            arrayIndexCount++;
+        }
+
+
+        // keep for testing, remove before i submit assignment
+        for(int i = 0; i < initialArray.length; i++) {
+            System.out.println("Element at index " + i + 
+            " : "+ initialArray[i]); 
+        }
 
     }
 
