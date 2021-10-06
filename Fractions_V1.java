@@ -13,11 +13,13 @@ public class Fractions_V1
 
     public static void main(String[] args)
     {
-        int reRun = 2;
-        do {
-            runner();
-            reRun = reRun();
-        }while (reRun != 0);
+        // int reRun = 2;
+        // do {
+        //     runner();
+        //     reRun = reRun();
+        // }while (reRun != 0);
+
+        runner();
     }
 
     // Method that runs the program
@@ -53,7 +55,7 @@ public class Fractions_V1
             // temp holder is needed to scroll through the file and get an accurate count
             String tempHolder = fileData1.next();
             fileLength++;
-            System.out.println(fileLength);
+            // System.out.println(fileLength);
         }
         // data stream needs to be closed and then reopened to set us back to the start of the file
         fileData1.close();
@@ -101,7 +103,7 @@ public class Fractions_V1
 
         for(int i = 0; i < initialArray.length; i++) {
             tempHolder3 = initialArray[i];
-            System.out.println("Element at index " + i + " for tempHolder3 is: " + initialArray[i]);
+            // System.out.println("Element at index " + i + " for tempHolder3 is: " + initialArray[i]);
             tempArray2 = tempHolder3.split("/");
             numerator[i] = tempArray2[0];
             denominator[i] =tempArray2[1];
@@ -111,33 +113,92 @@ public class Fractions_V1
             " : "+ denominator[i]);   
         }
 
-        int tempNumerator1 = Integer.parseInt(numerator[0]);
-        int tempDenominator1 = Integer.parseInt(denominator[0]);
-        int tempNumerator2 = Integer.parseInt(numerator[8]);
-        int tempDenominator2 = Integer.parseInt(denominator[8]);
+        int tempNumerator1;
+        int tempDenominator1;
+        int tempNumerator2;
+        int tempDenominator2;
+        String[] uniqueArray = new String[(initialArray.length)]; 
+        int[] uniqueArrayCounter = new int[(initialArray.length)]; 
 
-        System.out.println("num 1 = " + tempNumerator1);
-        System.out.println("den 1 = " + tempDenominator1);
-        System.out.println("num 2 = " + tempNumerator2);
-        System.out.println("den 2 = " +tempDenominator2);
+        // System.out.println("num 1 = " + tempNumerator1);
+        // System.out.println("den 1 = " + tempDenominator1);
+        // System.out.println("num 2 = " + tempNumerator2);
+        // System.out.println("den 2 = " +tempDenominator2);
 
-        int answer = ((tempNumerator1 * tempDenominator2)/ (tempNumerator2 * tempDenominator1) );
+        boolean answer;
 
-        System.out.println("the first unique will be " + initialArray[0] + " proof here : " + answer);
+        // System.out.println("the first unique will be " + initialArray[0] + " proof here : " + answer);
+
+        uniqueArray[0] = initialArray[0];
+        uniqueArrayCounter[0] = 1;
+
+        // for(int i = 0; i < uniqueArrayCounter.length; i++) {
+        //     System.out.println("Element at index " + i + " for uniqueArrayCounter is: " + uniqueArrayCounter[i]);  
+        // }
+
+        for(int i = 1; i < initialArray.length; i++) {
+            int o = 0;
+            int whileLoopCounter = 1;
+            tempNumerator2 = Integer.parseInt(numerator[i]);
+            tempDenominator2 = Integer.parseInt(denominator[i]);
+            System.out.println("In for loop");
+
+            System.out.println("temp numerator 2 = " + tempNumerator2);
+            System.out.println("temp denominator 2 = " +tempDenominator2);
+
+            for(int z = 1; z < initialArray.length; z++) {
+                if (uniqueArrayCounter[z] == 0) {
+                    break;
+
+                } else {
+                    whileLoopCounter++;
+
+                }
+            }
+
+            while(o < whileLoopCounter) {
+                System.out.println("In while loop");
+                tempNumerator1 = Integer.parseInt(numerator[o]);
+                tempDenominator1 = Integer.parseInt(denominator[o]);
+                System.out.println("temp numerator 1 = " + tempNumerator1);
+                System.out.println("temp denominator 1 = " +tempDenominator1);
+                System.out.println("o has the value of: " + o);
+                answer = ((tempNumerator1 * tempDenominator2) == (tempNumerator2 * tempDenominator1) );
+                System.out.println("answer has the value of: " + answer);
+
+                if (answer == true) {
+                    System.out.println("In if statement");
+                    uniqueArrayCounter[o]++;
+                    
+                    o = whileLoopCounter;
+                } else if (answer == false && uniqueArrayCounter[o+1] != 0) {
+                    System.out.println("In else if statement");
+                    o++;
+                } else {
+                    System.out.println("In else statement");
+                    uniqueArray[(o+1)] = initialArray[i];
+                    System.out.println("new uniqueArray entry at index " + (o+1) + " has the value of: " + uniqueArray[(o+1)]);
+                    uniqueArrayCounter[(o+1)]++;
+                    o= whileLoopCounter;
+
+                }
+                
+            } 
+        }
 
 
+        
 
-        // use split and delimiter slash make an array as an numerator and denominator
-        // use filedata2.split give it a space with  a delimiter slash, will receive an array of two strings, a numorator and a denomiator
-        // then to change strings into nums you use Integer something
-        // only save a fraction if it is unique
+        for(int i = 0; i < uniqueArray.length; i++) {
+            System.out.println("Element at index " + i + " for uniqueArray is: " + uniqueArray[i]);  
+        }
 
-        // What I need to do now 
-        // make two new arrays, one where the uniques go to
-        // and a second one that keeps track of the uniques
-        // I auto set the first index to the unique array and set the count to 1 unique
-        // when I scan the second unique and see that it most likely doesn't match then
-        // 
+        System.out.println("");
+
+        for(int i = 0; i < uniqueArrayCounter.length; i++) {
+            System.out.println("Element at index " + i + " for uniqueArrayCounter is: " + uniqueArrayCounter[i]);  
+        }
+
     }
 
     // method which provides the user with an option to run the program again
