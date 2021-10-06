@@ -10,29 +10,19 @@ import java.io.FileNotFoundException;
 
 public class Fractions_V1
 {
-
     public static void main(String[] args)
     {
-        // int reRun = 2;
-        // do {
-        //     runner();
-        //     reRun = reRun();
-        // }while (reRun != 0);
-
         runner();
     }
 
     // Method that runs the program
     static void runner(){
         Scanner fileData1 = null;
-        Scanner keyboard = new Scanner(System.in);
         String initialArray[];
 
 
         // records file name and sets default length to 0 characters
-        System.out.println("Please enter the name of the file which you would like to use");
-        // String fileName = keyboard.nextLine();
-        String fileName = "data.txt";
+        String fileName = "fractions.txt";
         int fileLength = 0;
 
         // try-catch to find file
@@ -76,8 +66,8 @@ public class Fractions_V1
 
         int arrayIndexCount = 0;
 
+        // Scrolls through the file and transfers the content of the file to initialArray
         while (fileData2.hasNext()) {
-            // temp holder is needed to scroll through the file and get an accurate count
             String tempHolder2 = fileData2.next();
             initialArray[arrayIndexCount] = tempHolder2;
             arrayIndexCount++;
@@ -92,25 +82,12 @@ public class Fractions_V1
         String[] denominator = new String[(initialArray.length)];
         String tempHolder3;
 
-        // keep for testing, remove before i submit assignment
-        for(int i = 0; i < initialArray.length; i++) {
-            System.out.println("Element at index " + i + 
-            " : "+ initialArray[i]); 
-        }
-
-        System.out.println(" ");
-
-
+        // Splits the numerator and denominator into their own arrays
         for(int i = 0; i < initialArray.length; i++) {
             tempHolder3 = initialArray[i];
-            // System.out.println("Element at index " + i + " for tempHolder3 is: " + initialArray[i]);
             tempArray2 = tempHolder3.split("/");
             numerator[i] = tempArray2[0];
             denominator[i] =tempArray2[1];
-            System.out.println("Element at index " + i + " for numerator is: " + 
-            " : "+ numerator[i]);  
-            System.out.println("Element at index " + i + " for denominator0 is: " + 
-            " : "+ denominator[i]);   
         }
 
         int tempNumerator1;
@@ -119,33 +96,22 @@ public class Fractions_V1
         int tempDenominator2;
         String[] uniqueArray = new String[(initialArray.length)]; 
         int[] uniqueArrayCounter = new int[(initialArray.length)]; 
-
-        // System.out.println("num 1 = " + tempNumerator1);
-        // System.out.println("den 1 = " + tempDenominator1);
-        // System.out.println("num 2 = " + tempNumerator2);
-        // System.out.println("den 2 = " +tempDenominator2);
-
         boolean answer;
 
-        // System.out.println("the first unique will be " + initialArray[0] + " proof here : " + answer);
-
+        // Since the first fraction will always be unique, I auto set it to be the first index in
+        // the uniqueArray and increase the count by one immediately
         uniqueArray[0] = initialArray[0];
         uniqueArrayCounter[0] = 1;
 
-        // for(int i = 0; i < uniqueArrayCounter.length; i++) {
-        //     System.out.println("Element at index " + i + " for uniqueArrayCounter is: " + uniqueArrayCounter[i]);  
-        // }
-
+        // Essentially what this for loop does is at this point it grabs the numbers from index 1 since we already
+        // recorded index 0
         for(int i = 1; i < initialArray.length; i++) {
             int o = 0;
             int whileLoopCounter = 1;
             tempNumerator2 = Integer.parseInt(numerator[i]);
             tempDenominator2 = Integer.parseInt(denominator[i]);
-            System.out.println("In for loop");
 
-            System.out.println("temp numerator 2 = " + tempNumerator2);
-            System.out.println("temp denominator 2 = " +tempDenominator2);
-
+            // for loop to determine how long the while loop will run
             for(int z = 1; z < initialArray.length; z++) {
                 if (uniqueArrayCounter[z] == 0) {
                     break;
@@ -156,28 +122,27 @@ public class Fractions_V1
                 }
             }
 
+            // this while loop will go one by one through the array of fractions checking if it can find a match
+            // to the fractions we set in the parent for loop (tempNumerator2 and tempDenominator2)
             while(o < whileLoopCounter) {
-                System.out.println("In while loop");
                 tempNumerator1 = Integer.parseInt(numerator[o]);
                 tempDenominator1 = Integer.parseInt(denominator[o]);
-                System.out.println("temp numerator 1 = " + tempNumerator1);
-                System.out.println("temp denominator 1 = " +tempDenominator1);
-                System.out.println("o has the value of: " + o);
                 answer = ((tempNumerator1 * tempDenominator2) == (tempNumerator2 * tempDenominator1) );
-                System.out.println("answer has the value of: " + answer);
 
+                // if they are equal then we know it is the same fraction and we record at the index
+                // an increase of 1 and we force an exit out of the while loop by setting o to whileLoopCounter
                 if (answer == true) {
-                    System.out.println("In if statement");
                     uniqueArrayCounter[o]++;
                     
                     o = whileLoopCounter;
+                    // if they aren't equal and there are more indexes that we need to check,
+                    // then move onto the next index
                 } else if (answer == false && uniqueArrayCounter[o+1] != 0) {
-                    System.out.println("In else if statement");
                     o++;
+                    // if they aren't equal and the next index is 0 then it sets
+                    // a new unique in the unique array and counter, as well as exits the while loop
                 } else {
-                    System.out.println("In else statement");
                     uniqueArray[(o+1)] = initialArray[i];
-                    System.out.println("new uniqueArray entry at index " + (o+1) + " has the value of: " + uniqueArray[(o+1)]);
                     uniqueArrayCounter[(o+1)]++;
                     o= whileLoopCounter;
 
@@ -186,29 +151,19 @@ public class Fractions_V1
             } 
         }
 
-
-        
-
-        for(int i = 0; i < uniqueArray.length; i++) {
-            System.out.println("Element at index " + i + " for uniqueArray is: " + uniqueArray[i]);  
-        }
-
         System.out.println("");
 
-        for(int i = 0; i < uniqueArrayCounter.length; i++) {
-            System.out.println("Element at index " + i + " for uniqueArrayCounter is: " + uniqueArrayCounter[i]);  
+        // simple for loop to print out the results for the user
+        for(int i = 0; i < uniqueArray.length; i++) {
+            if (uniqueArray[i] != null) {
+            System.out.println(uniqueArray[i] + " has " + uniqueArrayCounter[i] + " occurrences"); 
+            System.out.println("");
+            } else {
+             break;
+            } 
         }
 
     }
-
-    // method which provides the user with an option to run the program again
-    static int reRun(){
-        Scanner keyboard = new Scanner(System.in); 
-        System.out.println("Would you like to enter another file to be read? 0 for no, 1 for yes ");
-        int confirm = keyboard.nextInt();
-        return confirm;
-    }
-
 
 }
 
