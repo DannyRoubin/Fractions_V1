@@ -24,12 +24,13 @@ public class Fractions_V1
     static void runner(){
         Scanner fileData1 = null;
         Scanner keyboard = new Scanner(System.in);
-        Object initialArray[];
+        String initialArray[];
 
 
         // records file name and sets default length to 0 characters
         System.out.println("Please enter the name of the file which you would like to use");
-        String fileName = keyboard.nextLine();
+        // String fileName = keyboard.nextLine();
+        String fileName = "data.txt";
         int fileLength = 0;
 
         // try-catch to find file
@@ -41,6 +42,7 @@ public class Fractions_V1
         catch (FileNotFoundException e) {
             System.out.println("error");
             e.printStackTrace();
+            runner();
         }
 
 
@@ -68,18 +70,25 @@ public class Fractions_V1
             e.printStackTrace();
         }
         
-        initialArray = new Object[fileLength];
+        initialArray = new String[fileLength];
 
         int arrayIndexCount = 0;
 
         while (fileData2.hasNext()) {
             // temp holder is needed to scroll through the file and get an accurate count
             String tempHolder2 = fileData2.next();
-            Object tempObj = tempHolder2;
-            initialArray[arrayIndexCount] = tempObj;
+            initialArray[arrayIndexCount] = tempHolder2;
             arrayIndexCount++;
         }
+        
+        // closing data stream
+        fileData2.close();
 
+        // Created new variables and arrays to use
+        String[] tempArray2 = new String[(initialArray.length)];
+        String[] numerator = new String[(initialArray.length)];
+        String[] denominator = new String[(initialArray.length)];
+        String tempHolder3;
 
         // keep for testing, remove before i submit assignment
         for(int i = 0; i < initialArray.length; i++) {
@@ -87,6 +96,26 @@ public class Fractions_V1
             " : "+ initialArray[i]); 
         }
 
+        System.out.println(" ");
+
+
+        for(int i = 0; i < initialArray.length; i++) {
+            tempHolder3 = initialArray[i];
+            System.out.println("Element at index " + i + " for tempHolder3 is: " + initialArray[i]);
+            tempArray2 = tempHolder3.split("/");
+            numerator[i] = tempArray2[0];
+            denominator[i] =tempArray2[1];
+            System.out.println("Element at index " + i + " for numerator is: " + 
+            " : "+ numerator[i]);  
+            System.out.println("Element at index " + i + " for denominator0 is: " + 
+            " : "+ denominator[i]);   
+        }
+
+
+        // use split and delimiter slash make an array as an numerator and denominator
+        // use filedata2.split give it a space with  a delimiter slash, will receive an array of two strings, a numorator and a denomiator
+        // then to change strings into nums you use Integer something
+        // only save a fraction if it is unique
     }
 
     // method which provides the user with an option to run the program again
