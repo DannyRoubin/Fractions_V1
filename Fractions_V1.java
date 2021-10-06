@@ -80,7 +80,7 @@ public class Fractions_V1
             initialArray[arrayIndexCount] = tempHolder2;
             arrayIndexCount++;
         }
-        
+
         // closing data stream
         fileData2.close();
 
@@ -111,11 +111,33 @@ public class Fractions_V1
             " : "+ denominator[i]);   
         }
 
+        int tempNumerator1 = Integer.parseInt(numerator[0]);
+        int tempDenominator1 = Integer.parseInt(denominator[0]);
+        int tempNumerator2 = Integer.parseInt(numerator[8]);
+        int tempDenominator2 = Integer.parseInt(denominator[8]);
+
+        System.out.println("num 1 = " + tempNumerator1);
+        System.out.println("den 1 = " + tempDenominator1);
+        System.out.println("num 2 = " + tempNumerator2);
+        System.out.println("den 2 = " +tempDenominator2);
+
+        int answer = ((tempNumerator1 * tempDenominator2)/ (tempNumerator2 * tempDenominator1) );
+
+        System.out.println("the first unique will be " + initialArray[0] + " proof here : " + answer);
+
+
 
         // use split and delimiter slash make an array as an numerator and denominator
         // use filedata2.split give it a space with  a delimiter slash, will receive an array of two strings, a numorator and a denomiator
         // then to change strings into nums you use Integer something
         // only save a fraction if it is unique
+
+        // What I need to do now 
+        // make two new arrays, one where the uniques go to
+        // and a second one that keeps track of the uniques
+        // I auto set the first index to the unique array and set the count to 1 unique
+        // when I scan the second unique and see that it most likely doesn't match then
+        // 
     }
 
     // method which provides the user with an option to run the program again
